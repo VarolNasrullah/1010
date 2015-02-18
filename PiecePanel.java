@@ -10,15 +10,15 @@ import javax.swing.JLabel;
 
 public class PiecePanel extends JPanel
 {
-  private Piece p1;
-  private Piece p2;
-  private Piece p3;
+  public Piece p1;
+  public Piece p2;
+  public Piece p3;
 
-  PiecePanel(Piece piece1, Piece piece2, Piece piece3)
+  PiecePanel()
   {
-    p1 = piece1.setRandomPiece();
-    p2 = piece2.setRandomPiece();
-    p3 = piece3.setRandomPiece();
+    p1 = Piece.setRandomPiece();
+    p2 = Piece.setRandomPiece();
+    p3 = Piece.setRandomPiece();
     Box box = Box.createHorizontalBox();
     box.setPreferredSize(new Dimension(130, 300));
     JPanel pa1 = new JPanel();
