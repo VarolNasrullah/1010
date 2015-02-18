@@ -20,7 +20,7 @@ public class ScorePanel extends JPanel{
  Piece apple2 = new Piece();
  PiecePanel apple3 = new PiecePanel(apple2, apple2, apple2);
  private LetterPanel scorekeeper;
- private JButton newGame
+ private JButton newGame;
  
  //method for calculating current score
  //incomplete because there is no operation for 
