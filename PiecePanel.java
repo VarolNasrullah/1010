@@ -29,5 +29,7 @@ public class PiecePanel extends JPanel
     pa1.add(p1);
     pa1.add(p2);
     pa1.add(p3);
+    pa1.add(new GameMouseListener());
+    box.add(pa1);
+    this.add(box);
   }
-}
