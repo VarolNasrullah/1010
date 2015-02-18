@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Box;
+import javax.swing.JOptionPane;
 
 public class ScorePanel extends JPanel{
  public int score; //variable that contains current score
