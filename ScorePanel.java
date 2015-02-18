@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import javax.swing.Box;
 
 public class ScorePanel extends JPanel{
  public int score; //variable that contains current score
@@ -15,6 +15,8 @@ public class ScorePanel extends JPanel{
  public int count;
  TenTenCharMatrix apple = new TenTenCharMatrix(10,10); //make a TenTenCharMatrix class variable
  Piece apple2 = new Piece();
+ private LetterPanel scorekeeper;
+ private JButton newGame
  
  //method for calculating current score
  //incomplete because there is no operation for 
@@ -68,36 +70,36 @@ public class ScorePanel extends JPanel{
   score += apple2.blockArea(apple2.pieceShape);
  }
  
- public ScorePanel() //constructor
+ public ScorePanel(Letterpanel lpanel) //constructor
  	{
-	 JButton newButton = new JButton("New Game"); //JButton with "New Game" written
-	  //add actionListener to make JButton start a new game when pressed
-	  class NewListener implements ActionListener 
-	  {
-	   public void actionPerformed(ActionEvent event)
-	   {
-	    score = 0;
-	    apple.clear();
-	    //apple3.new();
-	   }
-	  }
-	  NewListener listener = new NewListener();
-	  newButton.addActionListener(listener);
+ 	scorekeeper = lpanel;
+ 	Box box = Box.createVerticalBox();
+ 	box.setPreferredSize(new Dimension(130,300));
+ 	JPanel p1 = new JPanel();
+ 	p1.setLayout(new GridLayout(2,2,10,10));
+ 	newGame = new JButton("New Game");
+ 	newGame.addActionListener(new NewGameListener);
+ 	p1.add(newGame);
+ 	p1.add(new JPanel()); //creates an empty panel
+ 	p1.add(new JLabel("Score:",null, JLabel.RIGHT));
+	scoreField = new JTextField("100");
+   	scoreField.setEditable(false);
+ 	box.add(p1);
+	this.add(box); 	
+ 	}
+	 
+public NewGameListener implements ActionListener
+{
+	public void actionPerformed(ActionEvent e)
+	{
+		score = 0;
+	   	apple.clear();
+	    	apple3.new();
+	}
+}
 
 	  
-	  
-	  
-	  //JTextField for displaying current score
-	  JTextField scoreBoard = new JTextField(score);
-	  scoreBoard.setFont(new Font("Serif", Font.BOLD, 35)); //set font for JTextField
-	  
-	  
-
-	  
-	        this.add(newButton); //add newButton to the scorePanel; instead of
-	        					//adding it to the class "ScorePanel," add it to the
-	        					//instances of ScorePanel.
-	        this.add(scoreBoard); //add scoreBoard to the scorePanel
-	 }
+	 
+	 
  
 }
