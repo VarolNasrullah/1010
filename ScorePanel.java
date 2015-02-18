@@ -15,6 +15,7 @@ public class ScorePanel extends JPanel{
  public int count;
  TenTenCharMatrix apple = new TenTenCharMatrix(10,10); //make a TenTenCharMatrix class variable
  Piece apple2 = new Piece();
+ PiecePanel apple3 = new PiecePanel(apple2, apple2, apple2);
  private LetterPanel scorekeeper;
  private JButton newGame
  
