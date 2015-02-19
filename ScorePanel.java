@@ -9,14 +9,15 @@ import javax.swing.JTextField;
 import javax.swing.Box;
 import javax.swing.JOptionPane;
 
-public class ScorePanel extends JPanel{
+public class ScorePanel extends JPanel
+{
  public int score; //variable that contains current score
  public int[] countRow = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
  public int[] countColumn = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
  public int count;
- TenTenCharMatrix apple = new TenTenCharMatrix(10,10); //make a TenTenCharMatrix class variable
- Piece apple2 = new Piece();
- PiecePanel apple3 = new PiecePanel(apple2, apple2, apple2);
+ TenTenCharMatrix tenTenCharMatrix = new TenTenCharMatrix(10,10); //make a TenTenCharMatrix class variable
+ Piece piece = new Piece();
+ PiecePanel piecePanel = new PiecePanel();
  private LetterPanel scorekeeper;
  private JButton newGame;
  private JButton help;
@@ -28,9 +29,9 @@ public class ScorePanel extends JPanel{
  {
   // check which rows are full
   // add one to count for each full row
-  for (int c=0; c<apple.numRows();c++)
+  for (int c=0; c<tenTenCharMatrix.numRows();c++)
   {
-   if (apple.rowFull(c))
+   if (tenTenCharMatrix.rowFull(c))
    {
     countRow[c]=1;
     count++;
@@ -38,9 +39,9 @@ public class ScorePanel extends JPanel{
   }
   
   // same for columns
-  for (int c=0; c<apple.numCols();c++)
+  for (int c=0; c<tenTenCharMatrix.numCols();c++)
   {
-   if (apple.columnFull(c))
+   if (tenTenCharMatrix.columnFull(c))
    {
     countColumn[c]=1;
     count++;
@@ -51,26 +52,26 @@ public class ScorePanel extends JPanel{
   
   // clear each full row
   // reset countRow array to 0
-  for (int i=0 ; i<apple.numRows(); i++)
+  for (int i=0 ; i<tenTenCharMatrix.numRows(); i++)
   {
    if(countRow[i]==1)
    {
-    apple.clearRow(i);
+    tenTenCharMatrix.clearRow(i);
     countRow[i]=0;
    }
   }
   
   // same for columns
-  for(int i=0 ; i<apple.numCols(); i++)
+  for(int i=0 ; i<tenTenCharMatrix.numCols(); i++)
   {
    if(countColumn[i]==1)
    {
-    apple.clearColumn(i);
+    tenTenCharMatrix.clearColumn(i);
     countColumn[i]=0;
    }
   }
 
-  score += apple2.blockArea(apple2.pieceShape);
+  score += piece.blockArea(piece.pieceShape);
  }
  
  public ScorePanel(Letterpanel lpanel) //constructor
@@ -97,8 +98,8 @@ public NewGameListener implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		score = 0;
-	   	apple.clear();
-	    	apple3.new();
+	   	tenTenCharMatrix.clear();
+	    	piecePanel.new();
 	}
 }
 
@@ -134,7 +135,5 @@ public void actionPerformed(ActionEvent e)
     }
   }
 	  
-	 
-	 
- 
+}
 }
