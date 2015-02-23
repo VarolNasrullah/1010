@@ -108,7 +108,7 @@ public class ScorePanel extends JPanel
 public void newGame(){
 	
 	score = 0;
-	apple.clear();
+	tenTenCharMatrix.clear();
 	apple3.new();
 }
 
