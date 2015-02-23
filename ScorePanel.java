@@ -109,7 +109,7 @@ public void newGame(){
 	
 	score = 0;
 	tenTenCharMatrix.clear();
-	apple3.new();
+	piecePanel.repaint(); // We have to see if Repaint works or not
 }
 
 //public HelpListener implements ActionListener
@@ -135,5 +135,4 @@ public void newGame(){
 //}
 
 	  
-}
 }
