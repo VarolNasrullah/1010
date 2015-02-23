@@ -4,12 +4,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Font;
 import java.awt.Color;
-
+import java.awt.GridLayout;
 import java.awt.geom.Rectangle2D;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -17,19 +17,30 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel
       implements ActionListener
 {
-  private final int ROWS = 7, COLS = 5; // Grid dimensions
+  private final int ROWS = 10, COLS = 10; // Grid dimensions
 
   private TenTen game;
   private TenTenCharMatrix charMatrix;
   private ScoreDisplay scoreDisplay;
-
+  private Piece piece;
+  private boolean isPieceSelected;
+  private JPanel[][] squares;
  
   public GamePanel(TenTen game)
   {
     this.game = game;
-    setPreferredSize(new Dimension(*****));
+    setPreferredSize(new Dimension(400,400));
+    
     setBackground(Color.WHITE);
-
+    this.setLayout(new GridLayout(10,10,1,1));
+    squares = new JPanel[10][10];
+    for (int i=0; i<10;i++)
+    {
+    	for (int j=0;j<10;j++)
+    	{
+    		this.add(squares[j][i]);
+    	}
+    }
   
 
     charMatrix = new TenTenCharMatrix(ROWS, COLS);
@@ -39,67 +50,62 @@ public class GamePanel extends JPanel
   public void setScoreDisplay(ScoreDisplay display)
   {
     scoreDisplay = display;
-    scoreDisplay.update(score);
+    //scoreDisplay.update(score);
   }
 
-  public void newGame()
-  {
-    charMatrix.clear();
-    stopCube();
-    score = 100;
-    scoreDisplay.update(score);
-  }
+  //I have this in another method, is it still necessary?
+//  public void newGame()
+//  {
+//	  	score = 0;
+//		tenTenCharMatrix.clear();
+//		piecePanel = new PiecePanel();
+//  }
 
+//someone has to tell the piece that it's selected, and what piece it is
+//  each piece has an origin or special square. If the mouse is in a given
+  //square, you ahve to figure out what square it's in. 
+  //then you need a method that says if a piece is selected.
+  //use the information in the piece class to determine if the piece fits
+  //method to return a boolean that says pieceFits(); it just checks
+  //if it does fit, it should paint in the new piece into the space
+  
 
+//  public void moveCubeLeft()
+//  {
+//    int x = cube.getX();
+//    int y = cube.getY();
+//    int row = (y + CUBESIZE) / CUBESIZE;
+//    int col = x / CUBESIZE;
+//    if (row >= 0 && row < charMatrix.numRows() &&
+//        col >= 1 && charMatrix.isEmpty(row, col - 1))
+//    {
+//      cube.move(x - CUBESIZE, y);
+//      repaint();
+//    }
+//  }
 
-  public void moveCubeLeft()
-  {
-    int x = cube.getX();
-    int y = cube.getY();
-    int row = (y + CUBESIZE) / CUBESIZE;
-    int col = x / CUBESIZE;
-    if (row >= 0 && row < charMatrix.numRows() &&
-        col >= 1 && charMatrix.isEmpty(row, col - 1))
-    {
-      cube.move(x - CUBESIZE, y);
-      repaint();
-    }
-  }
-
-  public void moveCubeRight()
-  {
-    int x = cube.getX();
-    int y = cube.getY();
-    int row = (y + CUBESIZE) / CUBESIZE;
-    int col = x / CUBESIZE;
-    if (row >= 0 && row < charMatrix.numRows() &&
-        col < charMatrix.numCols() - 1 && charMatrix.isEmpty(row, col + 1))
-    {
-      cube.move(x + CUBESIZE, y);
-      repaint();
-    }
-  }
-
-  private boolean moveCubeDown()
-  {
-    int x = cube.getX();
-    int y = cube.getY();
-    int row = (y + CUBESIZE + yStep) / CUBESIZE;
-    int col = x / CUBESIZE;
-    if (row < charMatrix.numRows() && charMatrix.isEmpty(row, col))
-    {
-      cube.move(x, y + yStep);
-      return true;
-    }
-    else  // land this cube:
-    {
-      row--;
-      if (row >= 0 && row < charMatrix.numRows())
-        charMatrix.setCharAt(row, col, cube.getLetter());
-      return false;
-    }
-  }
-
+ 
+//
+//  private boolean movePiece()
+//  {
+//    int x = piece.getX();
+//    int y = piece.getY();
+//    int row = (y + CUBESIZE + yStep) / CUBESIZE;
+//    int col = x / CUBESIZE;
+//    if (row < charMatrix.numRows() && charMatrix.isEmpty(row, col))
+//    {
+//      cube.move(x, y + yStep);
+//      return true;
+//    }
+//    else  // land this cube:
+//    {
+//      row--;
+//      if (row >= 0 && row < charMatrix.numRows())
+//        charMatrix.setCharAt(row, col, cube.getLetter());
+//      return false;
+//    }
+//  }
+//
 
  
 
@@ -110,63 +116,135 @@ public class GamePanel extends JPanel
   public void paintComponent(Graphics g)
   {
     super.paintComponent(g);
+    
     drawCharMatrix(g);
     drawPiece(g);
   }
 
   public void drawPiece(Graphics g)
   {
-    drawCube(g, piece.getX() + X_LEFT, piece.getY(), piece.getLetter());
+	  if (this.pieceSelected())
+	  {
+		  //drawCube(g, piece.getX() + X_LEFT, piece.getY(), piece.getLetter());
+		  if(this.piceceFits())
+		  {
+			  // get which square we are pointing at...
+			  // ask mouse listener for coordinates and 
+			  // do math magic to convert to squares...
+			  
+			  
+			  // that gets the origin...
+			  int mouseX;
+			  int mouseY;
+			  
+			  // loop through the coordsTable... check each square in charMatrix relative to coords table.
+			  boolean fits = true;
+			  for (int i=0; i< coordsTable.length; i++)
+			  {
+				  if (!charMatrix.isEmpty(mouseX+coords[i][0], mouseY+coords[i][1]))
+				  {
+					  fits=false;
+					  break;
+				  }
+			  }
+			  //it does fit...
+			  //color the squares the new color 
+			  for (int i=0; i< coordsTable.length; i++)
+			  {
+				  setColor(mouseX+coordsTable[i][0], mouseY+coords[i][1],Color...)
+			  }
+		  }
+	  }
+    
   }
 
   private void drawCharMatrix(Graphics g)
   {
-    g.setColor(Color.GRAY);
-    int size = CUBESIZE;
-    int x1 = X_LEFT - 2;
-    int x2 = X_LEFT + COLS * size + 1;
-    int y1 = 2;
-    int y2 = ROWS * size - 1;
-    g.drawLine(x1, y1, x1, y2);
-    g.drawLine(x2, y1, x2, y2);
-    g.drawLine(x1, y2, x2, y2);
-
-    for (int row = 0; row < ROWS; row++)
-    {
-      for (int col = 0; col < COLS; col++)
-      {
-        if (!charMatrix.isEmpty(row, col))
-        {
-          int x = X_LEFT + col * CUBESIZE;
-          int y = row * CUBESIZE;
-          drawCube(g, x, y, charMatrix.charAt(row, col));
-        }
-      }
-    }
+	  for (int i = 0; i<ROWS; i++)
+	  {
+		  for (int j=0; j<COLS; j++)
+		  {
+			  switch(charMatrix.charAt(i, j))
+			  {
+			 //	 //gray = z; Green = g; blue = b; magenta = m; orange = o; red = r; pink = p; yellow = y; cyan = c
+			  case ('c'):
+				setSquareColor(j,i,Color.CYAN);
+			  	break;
+			  case (' '):
+			  	setSquareColor(j,i,Color.WHITE);
+			    break;
+			  case ('g'): 
+			  	setSquareColor(j,i,Color.GREEN);
+			  	break;
+			  case ('b'):
+				setSquareColor(j,i,Color.BLUE);
+				 break;
+			  case ('m'):
+				 setSquareColor(j,i,Color.MAGENTA);
+				 break;
+			  case ('o'):
+				 setSquareColor(j,i,Color.ORANGE);
+				 break;
+			  case ('r'):
+				 setSquareColor(j,i,Color.RED);
+				 break;
+			  case ('y'):
+				 setSquareColor(j,i,Color.YELLOW);
+				 break;
+			  case ('z'):
+				 setSquareColor(j,i,Color.GRAY);
+				 break;
+			  case ('p'):
+					 setSquareColor(j,i,Color.PINK);
+					 break;
+			  }
+		  }
+	  }
+//    g.setColor(Color.GRAY);
+//    int size = CUBESIZE;
+//    int x1 = X_LEFT - 2;
+//    int x2 = X_LEFT + COLS * size + 1;
+//    int y1 = 2;
+//    int y2 = ROWS * size - 1;
+//    g.drawLine(x1, y1, x1, y2);
+//    g.drawLine(x2, y1, x2, y2);
+//    g.drawLine(x1, y2, x2, y2);
+//
+//    for (int row = 0; row < ROWS; row++)
+//    {
+//      for (int col = 0; col < COLS; col++)
+//      {
+//        if (!charMatrix.isEmpty(row, col))
+//        {
+//          int x = X_LEFT + col * CUBESIZE;
+//          int y = row * CUBESIZE;
+//          drawCube(g, x, y, charMatrix.charAt(row, col));
+//        }
+//      }
+//    }
+	  // First go through the char matrix and set the color of
+	  // squares 
   }
-
-  public void drawCube(Graphics g, int x, int y, char letter)
+  private void setSquareColor(int x, int y, Color color)
   {
-    int size = CUBESIZE;
-
-    // Get the width and height of the letter:
-    String s = String.valueOf(letter);
-    Font font = new Font("SansSerif", Font.BOLD, size / 2);
-    Rectangle2D r = font.getStringBounds(s,
-                          ((Graphics2D)g).getFontRenderContext());
-    int w = (int)r.getWidth();
-    int h = (int)(r.getHeight() * 0.6);
-
-    // Draw the cube:
-    g.setColor(Color.RED);
-    g.fill3DRect(x, y, size - 1, size - 1, true);
-    g.setColor(Color.WHITE);
-    g.fillRoundRect(x + 5, y + 5, size - 10, size - 10,
-                                        size/2 - 5, size/2 - 5);
-    // Draw the letter:
-    g.setColor(Color.BLACK);
-    g.setFont(font);
-    g.drawString(s, x + size / 2 - w/2, y + size/2 + h/2);
- 
+	  squares[x][y].setBackground(color);
   }
+//  public void drawPiece(Graphics g, int x, int y)
+//  {
+//   
+//	  return Piece();
+//   
+//  }
+  public static void main(String[] args)
+  {
+	  JFrame frame = new JFrame("panel test");
+	  // build a random charmatrix
+	  // test your drawing...
+	  
+  }
+@Override
+public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+	
+}
 }
