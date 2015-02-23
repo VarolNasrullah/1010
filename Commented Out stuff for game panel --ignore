@@ -1,0 +1,83 @@
+
+ //I have this in another method, is it still necessary?
+//  public void newGame()
+//  {
+//	  	score = 0;
+//		tenTenCharMatrix.clear();
+//		piecePanel = new PiecePanel();
+//  }
+
+//  public void moveCubeLeft()
+//  {
+//    int x = cube.getX();
+//    int y = cube.getY();
+//    int row = (y + CUBESIZE) / CUBESIZE;
+//    int col = x / CUBESIZE;
+//    if (row >= 0 && row < charMatrix.numRows() &&
+//        col >= 1 && charMatrix.isEmpty(row, col - 1))
+//    {
+//      cube.move(x - CUBESIZE, y);
+//      repaint();
+//    }
+//  }
+
+ 
+//
+//  private boolean movePiece()
+//  {
+//    int x = piece.getX();
+//    int y = piece.getY();
+//    int row = (y + CUBESIZE + yStep) / CUBESIZE;
+//    int col = x / CUBESIZE;
+//    if (row < charMatrix.numRows() && charMatrix.isEmpty(row, col))
+//    {
+//      cube.move(x, y + yStep);
+//      return true;
+//    }
+//    else  // land this cube:
+//    {
+//      row--;
+//      if (row >= 0 && row < charMatrix.numRows())
+//        charMatrix.setCharAt(row, col, cube.getLetter());
+//      return false;
+//    }
+//  }
+//
+
+
+
+//    g.setColor(Color.GRAY);
+//    int size = CUBESIZE;
+//    int x1 = X_LEFT - 2;
+//    int x2 = X_LEFT + COLS * size + 1;
+//    int y1 = 2;
+//    int y2 = ROWS * size - 1;
+//    g.drawLine(x1, y1, x1, y2);
+//    g.drawLine(x2, y1, x2, y2);
+//    g.drawLine(x1, y2, x2, y2);
+//
+//    for (int row = 0; row < ROWS; row++)
+//    {
+//      for (int col = 0; col < COLS; col++)
+//      {
+//        if (!charMatrix.isEmpty(row, col))
+//        {
+//          int x = X_LEFT + col * CUBESIZE;
+//          int y = row * CUBESIZE;
+//          drawCube(g, x, y, charMatrix.charAt(row, col));
+//        }
+//      }
+//    }
+	  // First go through the char matrix and set the color of
+	  // squares 
+	 
+	 
+	 
+	  
+	  //  public void drawPiece(Graphics g, int x, int y)
+//  {
+//   
+//	  return Piece();
+//   
+//  }
+	  
