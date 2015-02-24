@@ -1,4 +1,3 @@
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -53,13 +52,7 @@ public class GamePanel extends JPanel
     //scoreDisplay.update(score);
   }
 
-  //I have this in another method, is it still necessary?
-//  public void newGame()
-//  {
-//	  	score = 0;
-//		tenTenCharMatrix.clear();
-//		piecePanel = new PiecePanel();
-//  }
+ 
 
 //someone has to tell the piece that it's selected, and what piece it is
 //  each piece has an origin or special square. If the mouse is in a given
@@ -70,42 +63,6 @@ public class GamePanel extends JPanel
   //if it does fit, it should paint in the new piece into the space
   
 
-//  public void moveCubeLeft()
-//  {
-//    int x = cube.getX();
-//    int y = cube.getY();
-//    int row = (y + CUBESIZE) / CUBESIZE;
-//    int col = x / CUBESIZE;
-//    if (row >= 0 && row < charMatrix.numRows() &&
-//        col >= 1 && charMatrix.isEmpty(row, col - 1))
-//    {
-//      cube.move(x - CUBESIZE, y);
-//      repaint();
-//    }
-//  }
-
- 
-//
-//  private boolean movePiece()
-//  {
-//    int x = piece.getX();
-//    int y = piece.getY();
-//    int row = (y + CUBESIZE + yStep) / CUBESIZE;
-//    int col = x / CUBESIZE;
-//    if (row < charMatrix.numRows() && charMatrix.isEmpty(row, col))
-//    {
-//      cube.move(x, y + yStep);
-//      return true;
-//    }
-//    else  // land this cube:
-//    {
-//      row--;
-//      if (row >= 0 && row < charMatrix.numRows())
-//        charMatrix.setCharAt(row, col, cube.getLetter());
-//      return false;
-//    }
-//  }
-//
 
  
 
@@ -121,12 +78,18 @@ public class GamePanel extends JPanel
     drawPiece(g);
   }
 
+  public boolean pieceSelected(){
+	  if 
+  }
+  
+
+  
   public void drawPiece(Graphics g)
   {
 	  if (this.pieceSelected())
 	  {
 		  //drawCube(g, piece.getX() + X_LEFT, piece.getY(), piece.getLetter());
-		  if(this.piceceFits())
+		  if(this.pieceFits())
 		  {
 			  // get which square we are pointing at...
 			  // ask mouse listener for coordinates and 
@@ -141,7 +104,7 @@ public class GamePanel extends JPanel
 			  boolean fits = true;
 			  for (int i=0; i< coordsTable.length; i++)
 			  {
-				  if (!charMatrix.isEmpty(mouseX+coords[i][0], mouseY+coords[i][1]))
+				  if (!charMatrix.isEmpty(mouseX+coordsTable[i][0], mouseY+coordsTable[i][1]))
 				  {
 					  fits=false;
 					  break;
@@ -151,7 +114,7 @@ public class GamePanel extends JPanel
 			  //color the squares the new color 
 			  for (int i=0; i< coordsTable.length; i++)
 			  {
-				  setColor(mouseX+coordsTable[i][0], mouseY+coords[i][1],Color...)
+				  setSquareColor(mouseX+coordsTable[i][0], mouseY+coordsTable[i][1], possibleColors[i]);
 			  }
 		  }
 	  }
@@ -166,7 +129,6 @@ public class GamePanel extends JPanel
 		  {
 			  switch(charMatrix.charAt(i, j))
 			  {
-			 //	 //gray = z; Green = g; blue = b; magenta = m; orange = o; red = r; pink = p; yellow = y; cyan = c
 			  case ('c'):
 				setSquareColor(j,i,Color.CYAN);
 			  	break;
@@ -200,28 +162,7 @@ public class GamePanel extends JPanel
 			  }
 		  }
 	  }
-//    g.setColor(Color.GRAY);
-//    int size = CUBESIZE;
-//    int x1 = X_LEFT - 2;
-//    int x2 = X_LEFT + COLS * size + 1;
-//    int y1 = 2;
-//    int y2 = ROWS * size - 1;
-//    g.drawLine(x1, y1, x1, y2);
-//    g.drawLine(x2, y1, x2, y2);
-//    g.drawLine(x1, y2, x2, y2);
-//
-//    for (int row = 0; row < ROWS; row++)
-//    {
-//      for (int col = 0; col < COLS; col++)
-//      {
-//        if (!charMatrix.isEmpty(row, col))
-//        {
-//          int x = X_LEFT + col * CUBESIZE;
-//          int y = row * CUBESIZE;
-//          drawCube(g, x, y, charMatrix.charAt(row, col));
-//        }
-//      }
-//    }
+
 	  // First go through the char matrix and set the color of
 	  // squares 
   }
@@ -229,12 +170,7 @@ public class GamePanel extends JPanel
   {
 	  squares[x][y].setBackground(color);
   }
-//  public void drawPiece(Graphics g, int x, int y)
-//  {
-//   
-//	  return Piece();
-//   
-//  }
+
   public static void main(String[] args)
   {
 	  JFrame frame = new JFrame("panel test");
