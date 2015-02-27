@@ -1,0 +1,74 @@
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
+
+public class PiecePanelListener implements MouseMotionListener, MouseListener  {
+
+
+		private PiecePanel piecePanel;
+		private GamePanel gamePanel;
+		private Piece piece;
+		private int mX, mY;
+		private int gridMouseX, gridMouseY;
+		private int mouseX;
+		private int mouseY;
+		
+		public PiecePanelListener(PiecePanel pPanel){
+			this.piecePanel = pPanel;
+		}
+		
+		public void mouseMoved(MouseEvent me) {
+			mX = (int) me.getPoint().getX()/40;
+		    mY = (int) me.getPoint().getY()/40;
+		    piecePanel.setGridMouseX(mX);
+		    piecePanel.setGridMouseY(mY);
+			
+		}
+		
+		public void mouseClicked(MouseEvent e) {
+			  mouseX=e.getX();
+			  mouseY=e.getY();
+			if (piece.isSelected()){
+				isPieceSelected = true;
+			}
+		}
+		
+	
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		
+		
+	
+	
+		
+}
