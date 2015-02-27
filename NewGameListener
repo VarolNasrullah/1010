@@ -1,0 +1,24 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class NewGameListener implements ActionListener
+{
+	public int score;
+	TenTenCharMatrix tenTenCharMatrix = new TenTenCharMatrix(10,10);
+	PiecePanel piecePanel = new PiecePanel();
+	
+	public void newGameListener(ActionEvent e)
+	{
+
+	    	score = 0;
+	    	tenTenCharMatrix.clear();
+	    	piecePanel = new PiecePanel();
+	}
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+}
