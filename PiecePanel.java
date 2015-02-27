@@ -28,3 +28,11 @@ public class PiecePanel extends JPanel
     this.add(box);
   }
 }
+
+public void setGridMouseX(int gridMouseX) {
+this.gridMouseX = gridMouseX;
+}
+
+public void setGridMouseY(int gridMouseY){
+this.gridMouseY = gridMouseY;
+}
