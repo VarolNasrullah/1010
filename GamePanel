@@ -1,3 +1,5 @@
+
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -7,43 +9,35 @@ import java.awt.GridLayout;
 import java.awt.geom.Rectangle2D;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
-public class GamePanel extends JPanel
+public class GamePanel extends TenTenPanel
       implements ActionListener
 {
   private final int ROWS = 10, COLS = 10; // Grid dimensions
 
-  private TenTen game;
-  private TenTenCharMatrix charMatrix;
+  //private TenTen game;
+  //private TenTenCharMatrix charMatrix;
   private ScoreDisplay scoreDisplay;
   private Piece piece;
   private boolean isPieceSelected;
-  private JPanel[][] squares;
- 
-  public GamePanel(TenTen game)
-  {
-    this.game = game;
-    setPreferredSize(new Dimension(400,400));
-    
-    setBackground(Color.WHITE);
-    this.setLayout(new GridLayout(10,10,1,1));
-    squares = new JPanel[10][10];
-    for (int i=0; i<10;i++)
-    {
-    	for (int j=0;j<10;j++)
-    	{
-    		this.add(squares[j][i]);
-    	}
-    }
-  
+  //private JPanel[][] squares;
+  private int[][] mouseClickLocation;
+  private int mouseX;
+  private int mouseY;
+  private int gridMouseX;
+  private int gridMouseY;
 
-    charMatrix = new TenTenCharMatrix(ROWS, COLS);
-   
+  public GamePanel()
+  {
+	 super(10,10);
+	 this.addMouseListener(new GameMouseListener(this));
+     
   }
 
   public void setScoreDisplay(ScoreDisplay display)
@@ -78,11 +72,18 @@ public class GamePanel extends JPanel
     drawPiece(g);
   }
 
+ 
+ public void mouseClicked(MouseEvent e){
+		  mouseX=e.getX();
+		  mouseY=e.getY();
+	  }
+  
+  
   public boolean pieceSelected(){
-	  if 
+	  return isPieceSelected;
   }
   
-
+  
   
   public void drawPiece(Graphics g)
   {
@@ -96,38 +97,39 @@ public class GamePanel extends JPanel
 			  // do math magic to convert to squares...
 			  
 			  
-			  // that gets the origin...
-			  int mouseX;
-			  int mouseY;
-			  
-			  // loop through the coordsTable... check each square in charMatrix relative to coords table.
-			  boolean fits = true;
-			  for (int i=0; i< coordsTable.length; i++)
-			  {
-				  if (!charMatrix.isEmpty(mouseX+coordsTable[i][0], mouseY+coordsTable[i][1]))
-				  {
-					  fits=false;
-					  break;
-				  }
-			  }
+			 // loop through the coordsTable... check each square in charMatrix relative to coords table.
 			  //it does fit...
 			  //color the squares the new color 
-			  for (int i=0; i< coordsTable.length; i++)
+			  for (int i=0; i< Piece.coordsTable.length; i++)
 			  {
-				  setSquareColor(mouseX+coordsTable[i][0], mouseY+coordsTable[i][1], possibleColors[i]);
+				  setSquareColor(gridMouseX+piece.getCoords()[i][0], gridMouseY+piece.getCoords()[i][1], piece.getColor());
 			  }
 		  }
 	  }
     
   }
 
-  private void drawCharMatrix(Graphics g)
+  private boolean pieceFits() {
+	// TODO Auto-generated method stub
+	  gridMouseX = (this.mouseX)*20;
+	  gridMouseY= (this.mouseY)*20;
+	  for (int i=0; i< piece.getLength(); i++)
+	  {
+		  if (!this.getCharMatrix().isEmpty(gridMouseX+piece.getCoords()[i][0], gridMouseY+piece.getCoords()[i][1]))
+		  {
+			  return false;
+		  }
+	  }
+	  return true;
+}
+
+private void drawCharMatrix(Graphics g)
   {
 	  for (int i = 0; i<ROWS; i++)
 	  {
 		  for (int j=0; j<COLS; j++)
 		  {
-			  switch(charMatrix.charAt(i, j))
+			  switch(this.getCharMatrix().charAt(i, j))
 			  {
 			  case ('c'):
 				setSquareColor(j,i,Color.CYAN);
@@ -168,16 +170,46 @@ public class GamePanel extends JPanel
   }
   private void setSquareColor(int x, int y, Color color)
   {
-	  squares[x][y].setBackground(color);
+	  this.getSquares()[x][y].setBackground(color);
   }
 
   public static void main(String[] args)
   {
 	  JFrame frame = new JFrame("panel test");
+	  frame.setBounds(100,100,400,425);
 	  // build a random charmatrix
 	  // test your drawing...
+	  GamePanel panel= new GamePanel();
+	  Container c = frame.getContentPane();
+	  c.add(panel);
+	  frame.setVisible(true);
+	  TenTenCharMatrix matrix = panel.getCharMatrix();
+	  Piece piece=Piece.setRandomShape();
+	  matrix.setPiece(piece, 3, 3);
+	  matrix.setCharAt(3, 3, 'b');
+	  
+	  matrix.setCharAt(3, 4, 'c');
+	  
+	  panel.repaint();
+	  System.out.print(matrix);
 	  
   }
+public int getGridMouseX() {
+	return gridMouseX;
+}
+
+public void setGridMouseX(int gridMouseX) {
+	this.gridMouseX = gridMouseX;
+}
+
+public int getGridMouseY() {
+	return gridMouseY;
+}
+
+public void setGridMouseY(int gridMouseY) {
+	this.gridMouseY = gridMouseY;
+}
+
 @Override
 public void actionPerformed(ActionEvent e) {
 	// TODO Auto-generated method stub
