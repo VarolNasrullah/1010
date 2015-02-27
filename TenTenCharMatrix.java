@@ -112,5 +112,21 @@ public class TenTenCharMatrix
 	     
 	    }
   }
-  
+  public String toString()
+  {
+	  String ans="";
+	  for (int r = 0; r < numRows(); r++)
+	    {
+	      for (int c = 0; c < numCols(); c++)
+	      {
+	        ans+=grid[r][c]+" ";
+	      }
+	      ans+="\n";
+	    }
+	  return ans;
+  }
+  public static void main(String[] args)
+  {
+	  
+  }
 }
