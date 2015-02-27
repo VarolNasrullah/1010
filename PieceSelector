@@ -1,0 +1,152 @@
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+
+import javax.swing.Box;
+import javax.swing.JPanel;
+
+
+public class PieceSelector extends JPanel
+{
+	
+	public Piece piece;	
+
+	public PieceSelector()
+	{
+		piece.setRandomShape();
+		Box box1 = Box.createHorizontalBox();
+	    box1.setPreferredSize(new Dimension(130, 300));
+	    JPanel pa1 = new JPanel();
+	    pa1.setLayout(new GridLayout(5,5,10,10));
+	    
+	    this.repaint();
+	    pa1.add(new PiecePanelListener());
+	    box1.add(pa1);
+	    this.add(box1);
+	}
+	
+	public void paintComponent(Graphics g)
+    {
+    	switch (piece.getShape())
+    	{
+    		case NoShape:
+    			break;
+    		case OneSquare:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor1[]={0,1,1,0};
+    			int yCoor1[]={0,0,1,1};
+    			g.fillPolygon(xCoor1, yCoor1, 4);
+    			break;
+    		case TwoUpright:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor2[]={0,1,1,0};
+    			int yCoor2[]={0,0,2,2};
+    			g.fillPolygon(xCoor2, yCoor2, 4);
+    			break;
+    		case TwoSideways:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor3[]={0,2,2,0};
+    			int yCoor3[]={0,0,1,1};
+    			g.fillPolygon(xCoor3, yCoor3, 4);
+    			break;
+    		case ThreeUpright:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor4[]={0,1,1,0};
+    			int yCoor4[]={0,0,3,3};
+    			g.fillPolygon(xCoor4, yCoor4, 4);
+    			break;
+    		case ThreeSideways:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor5[]={0,3,3,0};
+    			int yCoor5[]={0,0,1,1};
+    			g.fillPolygon(xCoor5, xCoor5, 4);
+    			break;
+    		case FourUpright:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor6[]={0,1,1,0};
+    			int yCoor6[]={0,0,4,4};
+    			g.fillPolygon(xCoor6, xCoor6, 4);
+    			break;
+    		case FourSideways:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor7[]={0,4,4,0};
+    			int yCoor7[]={0,0,1,1};
+    			g.fillPolygon(xCoor7, xCoor7, 4);
+    			break;
+    		case FiveUpright:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor8[]={0,1,1,0};
+    			int yCoor8[]={0,0,5,5};
+    			g.fillPolygon(xCoor8, xCoor8, 4);
+    			break;
+    		case FiveSideways:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor9[]={0,5,5,0};
+    			int yCoor9[]={0,0,1,1};
+    			g.fillPolygon(xCoor9, xCoor9, 4);
+    			break;
+    		case TwobyTwo:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor10[]={0,2,2,0};
+    			int yCoor10[]={0,0,2,2};
+    			g.fillPolygon(xCoor10, xCoor10, 4);
+    			break;
+    		case ThreebyThree:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor11[]={0,3,3,0};
+    			int yCoor11[]={0,0,3,3};
+    			g.fillPolygon(xCoor11, xCoor11, 4);
+    			break;
+    		case SmallLOne:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor12[]={0,2,2,1,1,0};
+    			int yCoor12[]={0,0,1,1,2,2};
+    			g.fillPolygon(xCoor12, xCoor12, 6);
+    			break;
+    		case SmallLTwo:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor13[]={0,1,1,2,2,0};
+    			int xCoor13[]={0,0,1,1,2,2};
+    			g.fillPolygon(xCoor13, xCoor13, 6);
+    			break;
+    		case SmallLThree:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor14[]={-2,-2,0,0,-1,-1};
+    			int yCoor14[]={-1,0,0,-2,-2,-1};
+    			g.fillPolygon(xCoor14, xCoor14, 6);
+    			break;
+    		case SmallLFour:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor15[]={0,2,2,1,1,0};
+    			int yCoor15[]={0,0,2,2,1,1};
+    			g.fillPolygon(xCoor15, xCoor15, 6);
+    			break;
+    		case BigLOne:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor16[]={0,3,3,1,1,0};
+    			int yCoor16[]={0,0,1,1,3,3};
+    			g.fillPolygon(xCoor16, xCoor16, 6);
+    			break;
+    		case BigLTwo:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor17[]={0,1,1,3,3,0};
+    			int yCoor17[]={0,0,2,2,3,3};
+    			g.fillPolygon(xCoor17, xCoor17, 6);
+    			break;
+    		case BigLThree:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor18[]={-3,-3,0,0,-1,-1};
+    			int yCoor18[]={-1,0,0,-3,-3,-1};
+    			g.fillPolygon(xCoor18, xCoor18, 6);
+    			break;
+    		case BigLFour:
+    			g.setBackgroud(piece.getColor());
+    			int xCoor19[]={0,3,3,2,2,0};
+    			int yCoor19[]={0,0,3,3,1,1};
+    			g.fillPolygon(xCoor19, xCoor19, 6);
+    			break;
+    	}
+    		
+    }
+
+}
