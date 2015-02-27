@@ -18,8 +18,9 @@ public class PiecePanelListener implements MouseMotionListener, MouseListener  {
 			this.piecePanel = pPanel;
 		}
 		
-		public void mouseMoved(MouseEvent me) {
-			mX = (int) me.getPoint().getX()/40;
+		public void mouseMoved(MouseEvent me) 
+		{
+		    mX = (int) me.getPoint().getX()/40;
 		    mY = (int) me.getPoint().getY()/40;
 		    piecePanel.setGridMouseX(mX);
 		    piecePanel.setGridMouseY(mY);
