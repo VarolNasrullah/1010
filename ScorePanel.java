@@ -1,3 +1,4 @@
+
 import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -6,13 +7,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Box;
-import javax.swing.JOptionPane;
 
-public class ScorePanel extends JPanel
+public class ScorePanel extends JPanel implements ScoreDisplay
 {
  public int score; //variable that contains current score
  public int[] countRow = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -24,6 +23,7 @@ public class ScorePanel extends JPanel
  private JTextField scorekeeper;
  private JButton newGame;
  private JButton help;
+ private ScoreDisplay scoreDisplay;
  
  //method for calculating current score
  //incomplete because there is no operation for 
@@ -109,30 +109,22 @@ public void newGame(){
 	
 	score = 0;
 	tenTenCharMatrix.clear();
-	piecePanel.repaint(); // We have to see if Repaint works or not
+	piecePanel = new PiecePanel();
 }
 
-//public HelpListener implements ActionListener
-//{
-//	public void actionPerformed(ActionEvent e)
-//	{
-//	JOptionPane.showMessageDialog(null,
-  //      "The goal is to drop blocks in order to create" +
-    //    " and destroy full lines on the screen both" +
-      //  " vertically and horizontally.\n" +
-        //"Don't forget to keep the blocks from filling the screen.\n" +
-        //"Use the mouse to select pieces and place them in the grid.\n" +
-        //"No time limit, no colour match!\n" +
-//        " Fill all the grids with the matching blocks and enjoy 1010!" +
-  //      "Scoring:\n\n" +
-    //    "  Complete a Row: 10 pts" +
-      //  "Placing Blocks: \n\n" +
-        //" 1 block piece: 1 pt --- 2 block piece: 2 pts " +
-  //      " 3 block piece: 3 pts --- 4 block piece: 4 pts --- etc. ",
-    //    "How to Play",       // Dialog title
-      //  JOptionPane.PLAIN_MESSAGE);
-//	}
-//}
 
-	  
+public void update(int score) {
+	scorekeeper.setText(String.format("%03d", score));
+	
+}
+
+public void setScoreDisplay(ScoreDisplay display)
+{
+  scoreDisplay = display;
+  scoreDisplay.update(score);
+}
+
+
+  
+
 }
