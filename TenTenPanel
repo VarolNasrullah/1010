@@ -18,7 +18,7 @@ public class TenTenPanel extends JPanel
       implements ActionListener
 {
   private int rows, cols;
-  private TenTen game;
+  //private TenTen game;
   private TenTenCharMatrix charMatrix;
   private ScoreDisplay scoreDisplay;
   private Piece piece;
@@ -26,27 +26,44 @@ public class TenTenPanel extends JPanel
   private JPanel[][] squares;
   
   
-  public TenTenPanel(TenTen game, int rows, int cols){
-    this.game = game;
+  public TenTenPanel( int rows, int cols){
+    //this.game = game;
     setPreferredSize(new Dimension(400,400));
     
-    setBackground(Color.WHITE);
-    this.setLayout(new GridLayout(rows,cols,1,1));
+    setBackground(Color.DARK_GRAY);
+    this.setLayout(new GridLayout(rows,cols,3,3));
     squares = new JPanel[rows][cols];
     for (int i=0; i<rows;i++)
     {
     	for (int j=0;j<cols;j++)
     	{
+    		squares[j][i]=new JPanel();
     		this.add(squares[j][i]);
     	}
     }
   
 
-    charMatrix = new TenTenCharMatrix(ROWS, COLS);
+    charMatrix = new TenTenCharMatrix(10, 10);
    
   }
   
-   public void setScoreDisplay(ScoreDisplay display)
+   public TenTenCharMatrix getCharMatrix() {
+	return charMatrix;
+}
+
+public void setCharMatrix(TenTenCharMatrix charMatrix) {
+	this.charMatrix = charMatrix;
+}
+
+public JPanel[][] getSquares() {
+	return squares;
+}
+
+public void setSquares(JPanel[][] squares) {
+	this.squares = squares;
+}
+
+public void setScoreDisplay(ScoreDisplay display)
   {
     scoreDisplay = display;
   }
@@ -57,24 +74,22 @@ public class TenTenPanel extends JPanel
     super.paintComponent(g);
     
     drawCharMatrix(g);
-    drawPiece(g);
+    //drawPiece(g);
   }
   
   //this needs to be finished... it's the idea but doesn't actually work
   public boolean pieceSelected(){
-	  if (piece.isSelected()){
-	  isPieceSelected= true;
-	  }
-	  else{
-		  isPieceSelected= false;
-	  }
+	  return isPieceSelected;
   }
+  
+
+  
   
   private void drawCharMatrix(Graphics g)
   {
-	  for (int i = 0; i<ROWS; i++)
+	  for (int i = 0; i<10; i++)
 	  {
-		  for (int j=0; j<COLS; j++)
+		  for (int j=0; j<10; j++)
 		  {
 			  switch(charMatrix.charAt(i, j))
 			  {
@@ -127,4 +142,3 @@ public void actionPerformed(ActionEvent e) {
 }
   
   }
-  
